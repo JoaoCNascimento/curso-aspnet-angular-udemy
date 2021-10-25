@@ -1,0 +1,12 @@
+F:\projetos\curso-aspnet-angular-udemy\Backend\ProAgil.Repository\bin\Debug\netstandard2.0\ProAgil.Repository.deps.json
+F:\projetos\curso-aspnet-angular-udemy\Backend\ProAgil.Repository\bin\Debug\netstandard2.0\ProAgil.Repository.dll
+F:\projetos\curso-aspnet-angular-udemy\Backend\ProAgil.Repository\bin\Debug\netstandard2.0\ProAgil.Repository.pdb
+F:\projetos\curso-aspnet-angular-udemy\Backend\ProAgil.Repository\bin\Debug\netstandard2.0\ProAgil.Domain.dll
+F:\projetos\curso-aspnet-angular-udemy\Backend\ProAgil.Repository\bin\Debug\netstandard2.0\ProAgil.Domain.pdb
+F:\projetos\curso-aspnet-angular-udemy\Backend\ProAgil.Repository\obj\Debug\netstandard2.0\ProAgil.Repository.csprojAssemblyReference.cache
+F:\projetos\curso-aspnet-angular-udemy\Backend\ProAgil.Repository\obj\Debug\netstandard2.0\ProAgil.Repository.AssemblyInfoInputs.cache
+F:\projetos\curso-aspnet-angular-udemy\Backend\ProAgil.Repository\obj\Debug\netstandard2.0\ProAgil.Repository.AssemblyInfo.cs
+F:\projetos\curso-aspnet-angular-udemy\Backend\ProAgil.Repository\obj\Debug\netstandard2.0\ProAgil.Repository.csproj.CoreCompileInputs.cache
+F:\projetos\curso-aspnet-angular-udemy\Backend\ProAgil.Repository\obj\Debug\netstandard2.0\ProAgil.Repository.csproj.CopyComplete
+F:\projetos\curso-aspnet-angular-udemy\Backend\ProAgil.Repository\obj\Debug\netstandard2.0\ProAgil.Repository.dll
+F:\projetos\curso-aspnet-angular-udemy\Backend\ProAgil.Repository\obj\Debug\netstandard2.0\ProAgil.Repository.pdb
