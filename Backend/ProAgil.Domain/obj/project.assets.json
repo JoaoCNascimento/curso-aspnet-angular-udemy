@@ -179,23 +179,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Joao\\.nuget\\packages\\": {},
+    "C:\\Users\\joao.nascimento\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\projetos\\curso-aspnet-angular-udemy\\Backend\\ProAgil.Domain\\ProAgil.Domain.csproj",
+      "projectUniqueName": "c:\\Users\\joao.nascimento\\Desktop\\studies\\studies_projects\\dotnet & angular\\Backend\\ProAgil.Domain\\ProAgil.Domain.csproj",
       "projectName": "ProAgil.Domain",
-      "projectPath": "F:\\projetos\\curso-aspnet-angular-udemy\\Backend\\ProAgil.Domain\\ProAgil.Domain.csproj",
-      "packagesPath": "C:\\Users\\Joao\\.nuget\\packages\\",
-      "outputPath": "F:\\projetos\\curso-aspnet-angular-udemy\\Backend\\ProAgil.Domain\\obj\\",
+      "projectPath": "c:\\Users\\joao.nascimento\\Desktop\\studies\\studies_projects\\dotnet & angular\\Backend\\ProAgil.Domain\\ProAgil.Domain.csproj",
+      "packagesPath": "C:\\Users\\joao.nascimento\\.nuget\\packages\\",
+      "outputPath": "c:\\Users\\joao.nascimento\\Desktop\\studies\\studies_projects\\dotnet & angular\\Backend\\ProAgil.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Joao\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\joao.nascimento\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

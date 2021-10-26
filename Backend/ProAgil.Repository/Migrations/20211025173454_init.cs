@@ -19,8 +19,7 @@ namespace ProAgil.Repository.Migrations
                     QtdPessoas = table.Column<int>(nullable: false),
                     ImgUrl = table.Column<string>(nullable: true),
                     Telefone = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
-                    Lote = table.Column<string>(nullable: true)
+                    Email = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

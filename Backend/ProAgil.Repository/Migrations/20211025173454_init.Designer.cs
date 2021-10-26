@@ -9,7 +9,7 @@ using ProAgil.Repository;
 namespace ProAgil.Repository.Migrations
 {
     [DbContext(typeof(ProAgilContext))]
-    [Migration("20211025145600_init")]
+    [Migration("20211025173454_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,9 +34,6 @@ namespace ProAgil.Repository.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Local")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Lote")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("QtdPessoas")

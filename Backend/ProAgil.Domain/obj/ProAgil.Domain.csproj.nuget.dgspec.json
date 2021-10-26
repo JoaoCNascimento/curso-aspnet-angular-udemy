@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "F:\\projetos\\curso-aspnet-angular-udemy\\backend\\ProAgil.Domain\\ProAgil.Domain.csproj": {}
+    "C:\\Users\\joao.nascimento\\Desktop\\studies\\studies_projects\\dotnet & angular\\backend\\ProAgil.Domain\\ProAgil.Domain.csproj": {}
   },
   "projects": {
-    "F:\\projetos\\curso-aspnet-angular-udemy\\backend\\ProAgil.Domain\\ProAgil.Domain.csproj": {
+    "C:\\Users\\joao.nascimento\\Desktop\\studies\\studies_projects\\dotnet & angular\\backend\\ProAgil.Domain\\ProAgil.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\projetos\\curso-aspnet-angular-udemy\\backend\\ProAgil.Domain\\ProAgil.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\joao.nascimento\\Desktop\\studies\\studies_projects\\dotnet & angular\\backend\\ProAgil.Domain\\ProAgil.Domain.csproj",
         "projectName": "ProAgil.Domain",
-        "projectPath": "F:\\projetos\\curso-aspnet-angular-udemy\\backend\\ProAgil.Domain\\ProAgil.Domain.csproj",
-        "packagesPath": "C:\\Users\\Joao\\.nuget\\packages\\",
-        "outputPath": "F:\\projetos\\curso-aspnet-angular-udemy\\backend\\ProAgil.Domain\\obj\\",
+        "projectPath": "C:\\Users\\joao.nascimento\\Desktop\\studies\\studies_projects\\dotnet & angular\\backend\\ProAgil.Domain\\ProAgil.Domain.csproj",
+        "packagesPath": "C:\\Users\\joao.nascimento\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\joao.nascimento\\Desktop\\studies\\studies_projects\\dotnet & angular\\backend\\ProAgil.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Joao\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\joao.nascimento\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

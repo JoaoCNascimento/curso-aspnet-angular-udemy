@@ -62,7 +62,7 @@ namespace ProAgil.Repository
             }
 
             query = query.OrderByDescending(c => c.DataEvento)
-                .Where(c => c.Tema.Contains(tema));
+                .Where(c => c.Tema.ToLower().Contains(tema.ToLower()));
 
             return await query.ToArrayAsync();
         }
@@ -86,14 +86,38 @@ namespace ProAgil.Repository
         }
 
         //Palestrantes
-        public Task<Palestrante[]> GetAllPalestrantesAsyncByName()
+        public async Task<Palestrante[]> GetAllPalestrantesAsyncByName(string nome, bool includeEvento)
         {
-            throw new System.NotImplementedException();
+            IQueryable<Palestrante> query = this.context.Palestrantes
+                .Include(c => c.RedesSociais);
+
+            if (includeEvento)
+            {
+                query = query
+                .Include(pe => pe.PalestranteEventos)
+                .ThenInclude(e => e.Evento);
+            }
+
+            query = query.Where(p => p.Nome.ToLower().Contains(nome.ToLower()));
+
+            return await query.ToArrayAsync();
         }
 
-        public Task<Palestrante> GetPalestranteAsyncById(int PalestranteId)
+        public async Task<Palestrante> GetPalestranteAsyncById(int PalestranteId, bool includeEventos)
         {
-            throw new System.NotImplementedException();
+            IQueryable<Palestrante> query = this.context.Palestrantes
+                .Include(c => c.RedesSociais);
+
+            if (includeEventos)
+            {
+                query = query.Include(pe => pe.PalestranteEventos)
+                .ThenInclude(e => e.Evento);
+            }
+
+            query = query.OrderBy(p => p.Nome)
+                .Where(p => p.Id == PalestranteId);
+
+            return await query.FirstOrDefaultAsync();
         }
 
     }
