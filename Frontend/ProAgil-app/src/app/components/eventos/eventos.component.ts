@@ -1,5 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { Evento } from 'src/app/models/Evento';
+import { EventoService } from 'src/app/services/evento.service';
 
 @Component({
   selector: 'app-eventos',
@@ -8,7 +11,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EventosComponent implements OnInit {
 
+  eventos: Evento[] = []
+  imagemLargura: number = 100;
+  imagemMargem: number = 2;
+  mostrarImagem: boolean = false;
+
+  eventosFiltrados: any = [];
+  modalRef: BsModalRef;
+
   _filtroLista: string;
+
+  constructor(
+    private eventoService: EventoService
+    , private modalService: BsModalService
+  ) { }
+
   get filtroLista() {
     return this._filtroLista;
   }
@@ -17,33 +34,28 @@ export class EventosComponent implements OnInit {
     this.eventosFiltrados = this.filtroLista ? this.filtrarEventos(this.filtroLista) : this.eventos;
   }
 
-  eventos: any = []
-  imagemLargura: number = 100;
-  imagemMargem: number = 2;
-  mostrarImagem: boolean = false;
-
-  eventosFiltrados: any = [];
-
-  constructor(private httpClient: HttpClient) { }
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
 
   ngOnInit(): void {
     this.getEventos();
   }
 
   getEventos() {
-    let baseUrl = "http://localhost:5000";
-
-    this.httpClient.get(baseUrl + '/api/evento').subscribe(
-      res => { this.eventos = res; },
-      err => { console.log(err) }
-    );
+    this.eventoService.findAllEventos().subscribe(
+      (res: Evento[]) => {
+        this.eventos = res;
+        this.eventosFiltrados = this.eventos;
+      },
+      err => console.log(err));
   }
 
   alternarImagem() {
     this.mostrarImagem = !this.mostrarImagem;
   }
 
-  filtrarEventos(filtrarPor: string): any {
+  filtrarEventos(filtrarPor: string): Evento[] {
     filtrarPor = filtrarPor.toLocaleLowerCase();
     return this.eventos.filter(
       evento => evento.tema.toLocaleLowerCase().indexOf(filtrarPor) !== -1)
