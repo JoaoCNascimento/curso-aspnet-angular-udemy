@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, TemplateRef } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Evento } from 'src/app/models/Evento';
 import { EventoService } from 'src/app/services/evento.service';
@@ -15,6 +16,7 @@ export class EventosComponent implements OnInit {
   imagemLargura: number = 100;
   imagemMargem: number = 2;
   mostrarImagem: boolean = false;
+  registerForm: FormGroup;
 
   eventosFiltrados: any = [];
   modalRef: BsModalRef;
@@ -24,6 +26,7 @@ export class EventosComponent implements OnInit {
   constructor(
     private eventoService: EventoService
     , private modalService: BsModalService
+    , private fb: FormBuilder
   ) { }
 
   get filtroLista() {
@@ -39,6 +42,7 @@ export class EventosComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.validation();
     this.getEventos();
   }
 
@@ -49,6 +53,28 @@ export class EventosComponent implements OnInit {
         this.eventosFiltrados = this.eventos;
       },
       err => console.log(err));
+  }
+
+  validation() {
+    this.registerForm = this.fb.group({
+      tema: ['', [ Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+
+      local: [ '', [ Validators.required]],
+
+      dataEvento: [ '', [ Validators.required]],
+
+      imgUrl: [ '', [ Validators.required]],
+
+      qtdPessoas: [ '', [ Validators.required, Validators.max(120000)]],
+
+      telefone: [ '', [ Validators.required]],
+
+      email: [ '', [ Validators.required, Validators.email]],
+    })
+  }
+
+  salvarAlteracao() {
+
   }
 
   alternarImagem() {

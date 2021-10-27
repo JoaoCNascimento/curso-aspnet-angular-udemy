@@ -3,8 +3,9 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { BsDatepickerModule } from  'ngx-bootstrap/datepicker';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -23,8 +24,10 @@ import { NavComponent } from './nav/nav.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     TooltipModule.forRoot(),
     BsDropdownModule.forRoot(),
+    BsDatepickerModule.forRoot(),
     ModalModule.forRoot(),
     BrowserAnimationsModule
   ],
