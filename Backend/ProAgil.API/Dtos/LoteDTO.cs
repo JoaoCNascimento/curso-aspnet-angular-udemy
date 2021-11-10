@@ -16,7 +16,7 @@ namespace ProAgil.API.Dtos
         [Required (ErrorMessage = "A data de início é obrigatória.")]
         public string? DataInicio { get; set; }
 
-                [Required (ErrorMessage = "A data de fim é obrigatória.")]
+        [Required (ErrorMessage = "A data de fim é obrigatória.")]
         public string? DataFim { get; set; }
 
         [Range(2, 120000)]
