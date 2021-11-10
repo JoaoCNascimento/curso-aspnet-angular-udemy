@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProAgil.Repository;
 using ProAgil.Domain;
+using AutoMapper;
+using ProAgil.API.Dtos;
 
 namespace ProAgil.API.Controllers
 {
@@ -15,9 +17,11 @@ namespace ProAgil.API.Controllers
     public class EventoController : ControllerBase
     {
         private readonly IProAgilRepository repo;
-        public EventoController(IProAgilRepository repo)
+        private readonly IMapper mapper;
+        public EventoController(IProAgilRepository repo, IMapper mapper)
         {
             this.repo = repo;
+            this.mapper = mapper;
         }
 
         [HttpGet]
@@ -25,12 +29,15 @@ namespace ProAgil.API.Controllers
         {
             try
             {
-                var results = await repo.GetAllEventosAsync(true);
+                var eventos = await repo.GetAllEventosAsync(true);
+                
+                var results = mapper.Map<EventoDTO[]>(eventos);
+                
                 return Ok(results);
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, "Erro no banco de dados.");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, $"Erro no banco de dados.{ex.Message}");
             }
         }
 
@@ -39,7 +46,9 @@ namespace ProAgil.API.Controllers
         {
             try
             {
-                var result = await repo.GetEventoAsyncById(EventoId, true);
+                var evento = await repo.GetEventoAsyncById(EventoId, true);
+
+                var result = mapper.Map<EventoDTO>(evento);
 
                 if (result == null)
                 {
@@ -75,42 +84,43 @@ namespace ProAgil.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(Evento model)
+        public async Task<IActionResult> Post(EventoDTO model)
         {
             try 
             {
-                repo.Add(model);
+                var evento = this.mapper.Map<Evento>(model);
+
+                repo.Add(evento);
 
                 if(await repo.SaveChangesAsync())
                 {
-                    return Created($"/api/evento/{model.Id}", model);
+                    return Created($"/api/evento/{model.Id}", mapper.Map<EventoDTO>(evento));
                 }
             }
-            catch(System.Exception)
+            catch(System.Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError, "Erro no banco de dados.");
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Erro no banco de dados." + ex.Message);
             }
 
             return BadRequest();
         }
 
         [HttpPut("{EventoId}")]
-        public async Task<IActionResult> Put(int EventoId, Evento model)
+        public async Task<IActionResult> Put(int EventoId, EventoDTO model)
         {
             try 
             {
                 var evento = await repo.GetEventoAsyncById(EventoId, false);
 
-                if(evento == null) 
-                {
-                    return NotFound();
-                }
+                if(evento == null) return NotFound();
 
-                repo.Update(model);
+                mapper.Map(model, evento);
+
+                repo.Update(evento);
 
                 if(await repo.SaveChangesAsync())
                 {
-                    return Created($"/api/evento/{model.Id}", model);
+                    return Created($"/api/evento/{model.Id}", mapper.Map<EventoDTO>(evento));
                 }
             }
             catch(System.Exception)
@@ -121,7 +131,7 @@ namespace ProAgil.API.Controllers
             return BadRequest();
         }
 
-        [HttpDelete]
+        [HttpDelete("{EventoId}")]
         public async Task<IActionResult> Delete(int EventoId)
         {
             try 

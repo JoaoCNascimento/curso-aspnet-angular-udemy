@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using ProAgil.Repository;
+using AutoMapper;
 
 namespace ProAgil.API
 {
@@ -31,6 +32,7 @@ namespace ProAgil.API
             services.AddScoped<IProAgilRepository, ProAgilRepository>();
             services.AddDbContext<ProAgilContext>(
                 x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddAutoMapper();
             services.AddControllers();
             services.AddCors();
         }
