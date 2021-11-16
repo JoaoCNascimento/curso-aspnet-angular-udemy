@@ -22,6 +22,7 @@ export class EventosComponent implements OnInit {
   imagemMargem: number = 2;
   mostrarImagem: boolean = false;
   registerForm: FormGroup;
+  dataEvento: string;
 
   modoSalvar = "";
 

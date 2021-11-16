@@ -11,7 +11,7 @@ namespace ProAgil.API.Dtos
         [Required (ErrorMessage = "Campo obrigatório.")]
         [StringLength (100, MinimumLength = 3, ErrorMessage = "O local deve ter entre 3 e 100 caracteres.")]
         public string Local { get; set; }
-        public string DataEvento { get; set; }
+        public DateTime DataEvento { get; set; }
 
         [Required (ErrorMessage = "O tema deve ser preenchido.")]
         public string Tema { get; set; }

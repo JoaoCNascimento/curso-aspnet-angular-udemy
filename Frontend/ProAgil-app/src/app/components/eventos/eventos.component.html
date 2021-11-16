@@ -1,3 +1,4 @@
+<app-titulo [titulo]="'Eventos'"></app-titulo>
 <div class="d-flex justify-content-between">
   <div class="form-inline mt-3 mb-3 mr-auto">
     <div class="form-group">
@@ -12,7 +13,10 @@
     <!-- <button class="btn btn-outline-success">buscar</button> -->
   </div>
   <div class="mt-auto pb-3">
-    <button class="btn btn-outline-primary mt-auto" (click)="openModal(template)">
+    <button
+      class="btn btn-outline-primary mt-auto"
+      (click)="openModal(template)"
+    >
       <i class="fa fa-plus-circle"></i>
       Novo Evento
     </button>
@@ -20,7 +24,7 @@
 </div>
 
 <table class="table table-striped">
-  <thead class="thead-dark">
+  <thead class="bg-dark text-light">
     <tr>
       <th>
         <button class="btn btn-outline-primary" (click)="alternarImagem()">
@@ -52,6 +56,7 @@
       <td>{{ evento.tema }}</td>
       <td>{{ evento.local }}</td>
       <td>{{ evento.dataEvento | date: "dd/MM/yyyy hh:mm" }}</td>
+      <!-- <td>{{ evento.dataEvento }}</td> -->
       <td>{{ evento.qtdPessoas }}</td>
       <td>
         <div *ngIf="!evento.lotes.length">Não informado</div>
@@ -69,7 +74,11 @@
             <i class="fa fa-edit"></i>
           </button>
           <!--  -->
-          <button class="btn btn-sm btn-danger" tooltip="Excluir" (click)="confirmarExcluisaoEvento(evento, confirm)">
+          <button
+            class="btn btn-sm btn-danger"
+            tooltip="Excluir"
+            (click)="confirmarExcluisaoEvento(evento, confirm)"
+          >
             <i class="fa fa-eraser"></i>
           </button>
         </div>
@@ -85,13 +94,26 @@
   </tfoot>
 </table>
 
-<div bsModal #template="bs-modal" class="modal fade" tabindex="-1"
-     role="dialog" aria-labelledby="dialog-sizes-name1">
+<div
+  bsModal
+  #template="bs-modal"
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="dialog-sizes-name1"
+>
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Large modal</h4>
-        <button type="button" class="btn-close close pull-right" (click)="template.hide()" aria-label="Close">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">
+          Large modal
+        </h4>
+        <button
+          type="button"
+          class="btn-close close pull-right"
+          (click)="template.hide()"
+          aria-label="Close"
+        >
           <span aria-hidden="true" class="visually-hidden">&times;</span>
         </button>
       </div>
@@ -105,14 +127,30 @@
                 class="form-control"
                 [ngClass]="{
                   'is-invalid':
-                    registerForm.get('tema').errors && registerForm.get('tema').touched
+                    registerForm.get('tema').errors &&
+                    registerForm.get('tema').touched
                 }"
                 placeholder="Insira o tema"
                 formControlName="tema"
               />
-              <div *ngIf="registerForm.get('tema').hasError('required')" class="invalid-feedback">O tema é obrigatório</div>
-              <div *ngIf="registerForm.get('tema').hasError('minlength')" class="invalid-feedback">O tema deve ter no mínimo 4 caracteres.</div>
-              <div *ngIf="registerForm.get('tema').hasError('maxlength')" class="invalid-feedback">O tema deve ter no máximo 50 caracteres.</div>
+              <div
+                *ngIf="registerForm.get('tema').hasError('required')"
+                class="invalid-feedback"
+              >
+                O tema é obrigatório
+              </div>
+              <div
+                *ngIf="registerForm.get('tema').hasError('minlength')"
+                class="invalid-feedback"
+              >
+                O tema deve ter no mínimo 4 caracteres.
+              </div>
+              <div
+                *ngIf="registerForm.get('tema').hasError('maxlength')"
+                class="invalid-feedback"
+              >
+                O tema deve ter no máximo 50 caracteres.
+              </div>
             </div>
           </div>
           <div class="d-flex form-row">
@@ -123,7 +161,8 @@
                 class="form-control"
                 [ngClass]="{
                   'is-invalid':
-                    registerForm.get('local').errors && registerForm.get('local').touched
+                    registerForm.get('local').errors &&
+                    registerForm.get('local').touched
                 }"
                 placeholder="Insira o local do evento"
                 formControlName="local"
@@ -136,15 +175,18 @@
                 type="text"
                 bsDatepicker
                 [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY hh:mm a' }"
+                formControlName="dataEvento"
                 class="form-control"
                 [ngClass]="{
                   'is-invalid':
-                    registerForm.get('dataEvento').errors && registerForm.get('dataEvento').touched
+                    registerForm.get('dataEvento').errors &&
+                    registerForm.get('dataEvento').touched
                 }"
                 placeholder="Insira a data e a hora do evento"
-                formControlName="dataEvento"
               />
-              <div class="invalid-feedback">A data e hora são obrigatórios.</div>
+              <div class="invalid-feedback">
+                A data e hora são obrigatórios.
+              </div>
             </div>
           </div>
           <div class="d-flex form-row">
@@ -155,13 +197,24 @@
                 class="form-control"
                 [ngClass]="{
                   'is-invalid':
-                    registerForm.get('qtdPessoas').errors && registerForm.get('qtdPessoas').touched
+                    registerForm.get('qtdPessoas').errors &&
+                    registerForm.get('qtdPessoas').touched
                 }"
                 placeholder="Insira a qtd. de pessoas"
                 formControlName="qtdPessoas"
               />
-              <div *ngIf="registerForm.get('qtdPessoas').hasError('required')" class="invalid-feedback">A quantidade de pessoas é obrigatório.</div>
-              <div *ngIf="registerForm.get('qtdPessoas').hasError('max')" class="invalid-feedback">A quantidade de pessoas não deve ultrapassar 120000.</div>
+              <div
+                *ngIf="registerForm.get('qtdPessoas').hasError('required')"
+                class="invalid-feedback"
+              >
+                A quantidade de pessoas é obrigatório.
+              </div>
+              <div
+                *ngIf="registerForm.get('qtdPessoas').hasError('max')"
+                class="invalid-feedback"
+              >
+                A quantidade de pessoas não deve ultrapassar 120000.
+              </div>
             </div>
             <div class="form-group m-1 col-md-9">
               <label>Imagem</label>
@@ -170,7 +223,8 @@
                 class="form-control"
                 [ngClass]="{
                   'is-invalid':
-                    registerForm.get('imgUrl').errors && registerForm.get('imgUrl').touched
+                    registerForm.get('imgUrl').errors &&
+                    registerForm.get('imgUrl').touched
                 }"
                 placeholder="Insira a url da imagem"
                 formControlName="imgUrl"
@@ -186,7 +240,8 @@
                 class="form-control"
                 [ngClass]="{
                   'is-invalid':
-                    registerForm.get('telefone').errors && registerForm.get('telefone').touched
+                    registerForm.get('telefone').errors &&
+                    registerForm.get('telefone').touched
                 }"
                 placeholder="Insira o telefone"
                 formControlName="telefone"
@@ -200,13 +255,24 @@
                 class="form-control"
                 [ngClass]="{
                   'is-invalid':
-                    registerForm.get('email').errors && registerForm.get('email').touched
+                    registerForm.get('email').errors &&
+                    registerForm.get('email').touched
                 }"
                 placeholder="Insira o email"
                 formControlName="email"
               />
-              <div *ngIf="registerForm.get('email').hasError('required')" class="invalid-feedback">O email é obrigatório.</div>
-              <div *ngIf="registerForm.get('email').hasError('email')" class="invalid-feedback">O email inserido é inválido.</div>
+              <div
+                *ngIf="registerForm.get('email').hasError('required')"
+                class="invalid-feedback"
+              >
+                O email é obrigatório.
+              </div>
+              <div
+                *ngIf="registerForm.get('email').hasError('email')"
+                class="invalid-feedback"
+              >
+                O email inserido é inválido.
+              </div>
             </div>
           </div>
         </form>
@@ -214,7 +280,10 @@
       </div>
       <div class="modal-footer">
         <div class="d-flex w-100 justify-content-between">
-          <button class="btn m-1 btn-primary" (click)="salvarAlteracao(template)">
+          <button
+            class="btn m-1 btn-primary"
+            (click)="salvarAlteracao(template)"
+          >
             Salvar Alterações
           </button>
           <button class="btn m-1 btn-secondary" (click)="template.hide()">
@@ -226,28 +295,46 @@
   </div>
 </div>
 <!--  -->
-<div bsModal #confirm="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
-	<div class="modal-dialog modal-sm">
-  		<div class="modal-content">
-    		<div class="modal-header">
-      			<h4 class="modal-title pull-left">
-        			Deletando Evento
-      			</h4>
-            <button type="button" class="btn-close close pull-right" (click)="confirm.hide()" aria-label="Close">
-              <span aria-hidden="true" class="visually-hidden">&times;</span>
-            </button>
-    		</div>
-    		<div class="modal-body">
-      			<p>{{bodyDeletarEvento}}</p>
-    		</div>    
-    		<div class="modal-footer btn-group d-flex">      
-      			<button type="button" class="btn btn-outline-primary" (click)="confirm.hide()">
-        			CANCELAR
-      			</button>
-      			<button type="button" class="btn btn-outline-danger" (click)="excluirEvento(confirm)">
-          		DELETAR
-        		</button>
-    		</div>
-  		</div>
-	</div>
+<div
+  bsModal
+  #confirm="bs-modal"
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="dialog-sizes-name1"
+>
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title pull-left">Deletando Evento</h4>
+        <button
+          type="button"
+          class="btn-close close pull-right"
+          (click)="confirm.hide()"
+          aria-label="Close"
+        >
+          <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>{{ bodyDeletarEvento }}</p>
+      </div>
+      <div class="modal-footer btn-group d-flex">
+        <button
+          type="button"
+          class="btn btn-outline-danger"
+          (click)="excluirEvento(confirm)"
+        >
+          DELETAR
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-primary"
+          (click)="confirm.hide()"
+        >
+          CANCELAR
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
