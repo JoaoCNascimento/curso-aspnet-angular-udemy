@@ -46,7 +46,7 @@
       <td>
         <img
           *ngIf="mostrarImagem"
-          src="http://localhost:5000/img/{{ evento.imgUrl }}"
+          src="http://localhost:5000/resources/images/{{ evento.imgUrl }}?_ts{{dataAtual}}"
           [style.width.px]="imagemLargura"
           [style.margin.px]="imagemMargem"
           alt="Imagem ilustrativa"
@@ -56,7 +56,6 @@
       <td>{{ evento.tema }}</td>
       <td>{{ evento.local }}</td>
       <td>{{ evento.dataEvento | date: "dd/MM/yyyy hh:mm" }}</td>
-      <!-- <td>{{ evento.dataEvento }}</td> -->
       <td>{{ evento.qtdPessoas }}</td>
       <td>
         <div *ngIf="!evento.lotes.length">Não informado</div>
@@ -69,7 +68,7 @@
           <button
             class="btn btn-sm btn-success"
             tooltip="Editar"
-            (click)="editarEvento(evento.id, template)"
+            (click)="editarEvento(evento, template)"
           >
             <i class="fa fa-edit"></i>
           </button>
@@ -218,17 +217,29 @@
             </div>
             <div class="form-group m-1 col-md-9">
               <label>Imagem</label>
-              <input
-                type="text"
-                class="form-control"
-                [ngClass]="{
-                  'is-invalid':
-                    registerForm.get('imgUrl').errors &&
-                    registerForm.get('imgUrl').touched
-                }"
-                placeholder="Insira a url da imagem"
-                formControlName="imgUrl"
-              />
+              <table>
+                <tr>
+                  <td>
+                    <button class="btn btn-success" (click)="file.click()">
+                      Escolher Imagem
+                    </button>
+                    <input
+                      type="file"
+                      formControlName="imgUrl"
+                      #file
+                      style="display: none"
+                      (change)="onFileChange($event)"
+                      class="form-control"
+                      [ngClass]="{
+                        'is-invalid':
+                          registerForm.get('imgUrl').errors &&
+                          registerForm.get('imgUrl').touched
+                      }"
+                      placeholder="Insira a url da imagem"
+                    />
+                  </td>
+                </tr>
+              </table>
               <div class="invalid-feedback">A imagem é obrigatória.</div>
             </div>
           </div>

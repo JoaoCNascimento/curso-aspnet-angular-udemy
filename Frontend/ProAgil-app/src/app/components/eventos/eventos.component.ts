@@ -1,19 +1,26 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, TemplateRef } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { Evento } from 'src/app/models/Evento';
-import { EventoService } from 'src/app/services/evento.service';
-import { BsLocaleService } from 'ngx-bootstrap/datepicker';
-import { defineLocale, ptBrLocale } from 'ngx-bootstrap/chronos';
-defineLocale('pt-br', ptBrLocale);
+import { HttpClient } from "@angular/common/http";
+import { Component, OnInit, TemplateRef } from "@angular/core";
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from "@angular/forms";
+import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
+import { Evento } from "src/app/models/Evento";
+import { EventoService } from "src/app/services/evento.service";
+import { BsLocaleService } from "ngx-bootstrap/datepicker";
+import { defineLocale, ptBrLocale } from "ngx-bootstrap/chronos";
+defineLocale("pt-br", ptBrLocale);
 
 @Component({
-  selector: 'app-eventos',
-  templateUrl: './eventos.component.html',
-  styleUrls: ['./eventos.component.css']
+  selector: "app-eventos",
+  templateUrl: "./eventos.component.html",
+  styleUrls: ["./eventos.component.css"],
 })
 export class EventosComponent implements OnInit {
+  file: File;
+  fileNameToUpdate: string;
 
   eventos: Evento[] = [];
   evento: Evento;
@@ -26,17 +33,19 @@ export class EventosComponent implements OnInit {
 
   modoSalvar = "";
 
+  dataAtual: string;
+
   eventosFiltrados: any = [];
 
   _filtroLista: string;
 
   constructor(
-    private eventoService: EventoService
+    private eventoService: EventoService,
     // , private modalService: BsModalService
-    , private fb: FormBuilder
-    , private localeService: BsLocaleService
+    private fb: FormBuilder,
+    private localeService: BsLocaleService
   ) {
-    this.localeService.use('pt-br');
+    this.localeService.use("pt-br");
   }
 
   get filtroLista() {
@@ -44,9 +53,10 @@ export class EventosComponent implements OnInit {
   }
   set filtroLista(value: string) {
     this._filtroLista = value;
-    this.eventosFiltrados = this.filtroLista ? this.filtrarEventos(this.filtroLista) : this.eventos;
+    this.eventosFiltrados = this.filtroLista
+      ? this.filtrarEventos(this.filtroLista)
+      : this.eventos;
   }
-
 
   ngOnInit(): void {
     this.validation();
@@ -59,49 +69,103 @@ export class EventosComponent implements OnInit {
         this.eventos = res;
         this.eventosFiltrados = this.eventos;
       },
-      err => console.log(err));
+      (err) => console.log(err)
+    );
   }
 
   validation() {
-    this.modoSalvar = "post"
+    this.modoSalvar = "post";
+
     this.registerForm = this.fb.group({
-      tema: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+      id: [0],
 
-      local: ['', [Validators.required]],
+      tema: [
+        "",
+        [
+          Validators.required,
+          Validators.minLength(4),
+          Validators.maxLength(50),
+        ],
+      ],
 
-      dataEvento: ['', [Validators.required]],
+      local: ["", [Validators.required]],
 
-      imgUrl: ['', [Validators.required]],
+      dataEvento: ["", [Validators.required]],
 
-      qtdPessoas: ['', [Validators.required, Validators.max(120000)]],
+      imgUrl: ["", [Validators.required]],
 
-      telefone: ['', [Validators.required]],
+      qtdPessoas: ["", [Validators.required, Validators.max(120000)]],
 
-      email: ['', [Validators.required, Validators.email]],
-    })
+      telefone: ["", [Validators.required]],
+
+      email: ["", [Validators.required, Validators.email]],
+    });
   }
 
   salvarAlteracao(template: any) {
     if (this.registerForm.valid) {
-      if(this.modoSalvar === 'post') {
+      if (this.modoSalvar === "post") {
         this.evento = Object.assign({}, this.registerForm.value);
-        return this.eventoService.postEvento(this.evento).subscribe(
+
+        this.uploadImagem();
+
+        this.eventoService.postEvento(this.evento).subscribe(
           (res: Evento) => {
             template.hide();
             this.getEventos();
           },
-          error => console.log(error)
+          (error) => console.log(error)
         );
+
+        return;
       }
 
       this.evento = Object.assign({}, this.registerForm.value);
+
+      this.uploadImagem();
+
       this.eventoService.putEvento(this.evento).subscribe(
-        res => {
+        (res) => {
           template.hide();
           this.getEventos();
         },
-        error => console.log(error)
-      )
+        (error) => console.log(error)
+      );
+    }
+  }
+
+  uploadImagem() {
+    if(this.modoSalvar === 'post') {
+      const nomeArquivo = this.evento.imgUrl.split('\\', 3);
+      this.evento.imgUrl = nomeArquivo[2];
+
+      this.eventoService.postUpload(this.file, nomeArquivo[2])
+        .subscribe(() => {
+          this.dataAtual = new Date().getMilliseconds().toString();
+          this.getEventos();
+        });
+
+      return;
+    }
+
+    this.eventoService.postUpload(this.file, this.fileNameToUpdate)
+      .subscribe(() => {
+        this.dataAtual = new Date().getMilliseconds().toString();
+        this.getEventos();
+      });
+    this.evento.imgUrl = this.fileNameToUpdate;
+
+    // const nomeArquivo = this.evento.imgUrl.split("\\", 3);
+    // this.evento.imgUrl = nomeArquivo[2];
+
+    // this.eventoService.postUpload(this.file).subscribe();
+  }
+
+  onFileChange(event) {
+    const reader = new FileReader();
+
+    if (event.target.files && event.target.files.length) {
+      this.file = event.target.files;
     }
   }
 
@@ -113,11 +177,11 @@ export class EventosComponent implements OnInit {
 
   excluirEvento(template) {
     this.eventoService.deleteEvento(this.evento.id).subscribe(
-      res => {
+      (res) => {
         template.hide();
         this.getEventos();
       },
-      error => console.log(error)
+      (error) => console.log(error)
     );
   }
 
@@ -125,44 +189,25 @@ export class EventosComponent implements OnInit {
     this.mostrarImagem = !this.mostrarImagem;
   }
 
-
-
   openModal(template: any) {
     this.registerForm.reset();
     template.show();
   }
 
-  editarEvento(evento_id: number, template: any) {
-    this.modoSalvar = "put"
-    this.registerForm.reset();
-    this.eventoService.findOneById(evento_id).subscribe(
-      (res: Evento) => {
-        this.registerForm = this.fb.group({
-
-          id: [res.id],
-
-          tema: [res.tema, [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
-
-          local: [res.local, [Validators.required]],
-
-          dataEvento: [res.dataEvento, [Validators.required]],
-
-          imgUrl: [res.imgUrl, [Validators.required]],
-
-          qtdPessoas: [res.qtdPessoas, [Validators.required, Validators.max(120000)]],
-
-          telefone: [res.telefone, [Validators.required]],
-
-          email: [res.email, [Validators.required, Validators.email]],
-        })
-        template.show();
-      }
-    )
+  editarEvento(evento: Evento, template: any) {
+    this.modoSalvar = "put";
+    this.openModal(template);
+    this.evento = Object.assign({}, evento);
+    this.fileNameToUpdate = evento.imgUrl.toString();
+    this.evento.dataEvento = new Date(this.evento.dataEvento);
+    this.evento.imgUrl = "";
+    this.registerForm.patchValue(this.evento);
   }
 
   filtrarEventos(filtrarPor: string): Evento[] {
     filtrarPor = filtrarPor.toLocaleLowerCase();
     return this.eventos.filter(
-      evento => evento.tema.toLocaleLowerCase().indexOf(filtrarPor) !== -1);
+      (evento) => evento.tema.toLocaleLowerCase().indexOf(filtrarPor) !== -1
+    );
   }
 }
